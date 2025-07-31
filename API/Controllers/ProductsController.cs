@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ public class ProductsController : ControllerBase
     {
         this.repository = repository;
     }
-  
+
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
     {
@@ -74,6 +75,15 @@ public class ProductsController : ControllerBase
         }
     }
 
-
+    [HttpGet("brands")]
+    public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
+    {
+        return Ok(await repository.GetBrandsAsync());
+    }
     
+    [HttpGet("types")]
+    public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
+    {
+        return Ok(await repository.GetTypesAsync());
+    }
 }
